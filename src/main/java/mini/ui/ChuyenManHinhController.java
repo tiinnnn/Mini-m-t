@@ -27,13 +27,13 @@ public class ChuyenManHinhController {
         this.root = jpnRoot;
     }
     public void setView(JPanel jpnItem, JLabel jlbItem){
-        kindSelected="TrangChu";
+        kindSelected="BanHang";
         jpnItem.setBackground(new Color(102,102,255));
         jlbItem.setBackground(new Color(102,102,255));
         
         root.removeAll();
         root.setLayout(new BorderLayout());
-        root.add(new TrangChuJPanel());
+        root.add(new BanHangJPanel());
         root.validate();
         root.repaint();
     }
@@ -58,9 +58,6 @@ public class ChuyenManHinhController {
         @Override
         public void mouseClicked(MouseEvent e) {
             switch (kind) {
-                case "TrangChu":
-                    node = new TrangChuJPanel();
-                    break;
                 case "BanHang":
                     node = new BanHangJPanel();
                     break;
@@ -88,8 +85,11 @@ public class ChuyenManHinhController {
                 case "Pass":
                     node = new ChangePasswordJPanel();
                     break;
+                case "ChangeUser":
+                    node = new ChangePasswordJPanel();
+                    break;
                 default:
-                    node = new TrangChuJPanel(); // hoặc bạn có thể để là null hoặc panel mặc định khác
+                    node = new BanHangJPanel(); // hoặc bạn có thể để là null hoặc panel mặc định khác
                     break;
             }
            root.removeAll();
