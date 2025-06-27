@@ -30,10 +30,10 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
         listDanhMuc.add(new DanhMucBean("DoanhThu", jpnDoanhThu, jlbDoanhThu));
         listDanhMuc.add(new DanhMucBean("QLHoaDon", jpnQLHoaDon, jlbQLHoaDon));
         listDanhMuc.add(new DanhMucBean("Pass", jpnPass, jlbPass));
-        listDanhMuc.add(new DanhMucBean("ChangeUser", jpnChange, jlbChange));
+        listDanhMuc.add(new DanhMucBean("ChangeUser", jpnChangeUser, jlbChangeUser));
         
         ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
-        controller.setView (jpnBanHang, jlbBanHang);
+        controller.setView (jpnChangeUser, jlbChangeUser);
         controller.setEvent(listDanhMuc);
     }
 
@@ -69,8 +69,8 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
         jlbQLHoaDon = new javax.swing.JLabel();
         jpnQLKhachHang = new javax.swing.JPanel();
         jlbQLKhachHang = new javax.swing.JLabel();
-        jpnChange = new javax.swing.JPanel();
-        jlbChange = new javax.swing.JLabel();
+        jpnChangeUser = new javax.swing.JPanel();
+        jlbChangeUser = new javax.swing.JLabel();
         jpnView = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
         txtTen = new javax.swing.JLabel();
@@ -347,26 +347,26 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jpnChange.setBackground(new java.awt.Color(153, 153, 255));
+        jpnChangeUser.setBackground(new java.awt.Color(153, 153, 255));
 
-        jlbChange.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jlbChange.setForeground(new java.awt.Color(255, 255, 255));
-        jlbChange.setText("Chuyển tài khoản ");
+        jlbChangeUser.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jlbChangeUser.setForeground(new java.awt.Color(255, 255, 255));
+        jlbChangeUser.setText("Người dùng");
 
-        javax.swing.GroupLayout jpnChangeLayout = new javax.swing.GroupLayout(jpnChange);
-        jpnChange.setLayout(jpnChangeLayout);
-        jpnChangeLayout.setHorizontalGroup(
-            jpnChangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnChangeLayout.createSequentialGroup()
+        javax.swing.GroupLayout jpnChangeUserLayout = new javax.swing.GroupLayout(jpnChangeUser);
+        jpnChangeUser.setLayout(jpnChangeUserLayout);
+        jpnChangeUserLayout.setHorizontalGroup(
+            jpnChangeUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnChangeUserLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlbChange)
-                .addGap(67, 67, 67))
+                .addComponent(jlbChangeUser)
+                .addGap(97, 97, 97))
         );
-        jpnChangeLayout.setVerticalGroup(
-            jpnChangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnChangeLayout.createSequentialGroup()
+        jpnChangeUserLayout.setVerticalGroup(
+            jpnChangeUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnChangeUserLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jlbChange)
+                .addComponent(jlbChangeUser)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -382,7 +382,7 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
                     .addComponent(jpnLichSu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpnPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpnQLKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpnChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpnChangeUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addComponent(jpnManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -401,8 +401,8 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpnPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpnChange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addComponent(jpnChangeUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpnView.setBackground(new java.awt.Color(204, 204, 204));
@@ -411,11 +411,11 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
         jpnView.setLayout(jpnViewLayout);
         jpnViewLayout.setHorizontalGroup(
             jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1424, Short.MAX_VALUE)
+            .addGap(0, 858, Short.MAX_VALUE)
         );
         jpnViewLayout.setVerticalGroup(
             jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 706, Short.MAX_VALUE)
+            .addGap(0, 720, Short.MAX_VALUE)
         );
 
         btnExit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -442,25 +442,24 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnRootLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnRootLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(0, 624, Short.MAX_VALUE)
                         .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpnRootLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnRootLayout.createSequentialGroup()
                                 .addComponent(txtTen)
                                 .addGap(35, 35, 35)
                                 .addComponent(txtmanv)
                                 .addGap(35, 35, 35)
                                 .addComponent(txtchucvu)
-                                .addGap(80, 80, 80))
-                            .addGroup(jpnRootLayout.createSequentialGroup()
-                                .addComponent(jpnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnRootLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExit)
-                        .addContainerGap())))
+                                .addGap(29, 29, 29))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnRootLayout.createSequentialGroup()
+                                .addComponent(btnExit)
+                                .addGap(17, 17, 17))))
+                    .addGroup(jpnRootLayout.createSequentialGroup()
+                        .addComponent(jpnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jpnRootLayout.setVerticalGroup(
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +472,7 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
                     .addComponent(txtchucvu))
                 .addGap(18, 18, 18)
                 .addComponent(jpnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11))
         );
@@ -482,17 +481,13 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jpnRoot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jpnRoot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addComponent(jpnRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -546,7 +541,7 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jlbBanHang;
-    private javax.swing.JLabel jlbChange;
+    private javax.swing.JLabel jlbChangeUser;
     private javax.swing.JLabel jlbDoanhThu;
     private javax.swing.JLabel jlbLichSu;
     private javax.swing.JLabel jlbPass;
@@ -556,7 +551,7 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jlbQLNhanVien;
     private javax.swing.JLabel jlbQLSP;
     private javax.swing.JPanel jpnBanHang;
-    private javax.swing.JPanel jpnChange;
+    private javax.swing.JPanel jpnChangeUser;
     private javax.swing.JPanel jpnDoanhThu;
     private javax.swing.JPanel jpnLichSu;
     private javax.swing.JPanel jpnManager;

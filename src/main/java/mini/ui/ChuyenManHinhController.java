@@ -27,13 +27,13 @@ public class ChuyenManHinhController {
         this.root = jpnRoot;
     }
     public void setView(JPanel jpnItem, JLabel jlbItem){
-        kindSelected="BanHang";
+        kindSelected="ChangeUser";
         jpnItem.setBackground(new Color(102,102,255));
         jlbItem.setBackground(new Color(102,102,255));
         
         root.removeAll();
         root.setLayout(new BorderLayout());
-        root.add(new BanHangJPanel());
+        root.add(new ChangeUserJPanel());
         root.validate();
         root.repaint();
     }
@@ -86,10 +86,10 @@ public class ChuyenManHinhController {
                     node = new ChangePasswordJPanel();
                     break;
                 case "ChangeUser":
-                    node = new ChangePasswordJPanel();
+                    node = new ChangeUserJPanel();
                     break;
                 default:
-                    node = new BanHangJPanel(); // hoặc bạn có thể để là null hoặc panel mặc định khác
+                    node = new ChangeUserJPanel(); // hoặc bạn có thể để là null hoặc panel mặc định khác
                     break;
             }
            root.removeAll();
