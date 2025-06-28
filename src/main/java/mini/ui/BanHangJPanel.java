@@ -129,7 +129,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         jLabel3.setText("Tổng tiền:");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("tiền");
+        jLabel4.setText("Total");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Khấu trự hạng:");
@@ -138,10 +138,10 @@ public class BanHangJPanel extends javax.swing.JPanel {
         jLabel6.setText("Thành tiền:");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel11.setText("phần trăm");
+        jLabel11.setText("Percent");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel12.setText("jLabel12");
+        jLabel12.setText("Money");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -186,7 +186,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                                     .addComponent(btnRemove)
                                     .addGap(18, 18, 18)
                                     .addComponent(btnAdd)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(18, 18, 18)
                             .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))

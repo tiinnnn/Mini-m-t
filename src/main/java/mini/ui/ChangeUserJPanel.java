@@ -44,10 +44,10 @@ public class ChangeUserJPanel extends javax.swing.JPanel {
         jLabel3.setText("Mã NV:");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Name");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setText("jLabel4");
+        jLabel4.setText("Number");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setText("Đổi tài khoản");
@@ -56,7 +56,7 @@ public class ChangeUserJPanel extends javax.swing.JPanel {
         jLabel5.setText("Chức vụ:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setText("jLabel4");
+        jLabel6.setText("Position");
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/8382754.png"))); // NOI18N
 
@@ -81,7 +81,7 @@ public class ChangeUserJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(110, 110, 110))
             .addGroup(layout.createSequentialGroup()
@@ -111,7 +111,7 @@ public class ChangeUserJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel7)))
                 .addGap(90, 90, 90)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

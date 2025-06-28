@@ -347,7 +347,7 @@ public class QLSanPhamJPanel extends javax.swing.JPanel {
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete)
                     .addComponent(btnMoveLast))
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(202, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("BIỂU MẪU", jPanel4);
@@ -419,8 +419,6 @@ public class QLSanPhamJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnCreate;
-    private javax.swing.JButton btnCreate1;
     private javax.swing.JButton btnCreate2;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnMoveFirst;
