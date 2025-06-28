@@ -130,7 +130,7 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
                     .addComponent(jButton3)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("DANH SÁCH", jPanel1);
@@ -218,7 +218,7 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
                     .addComponent(jTextField2)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addContainerGap(336, Short.MAX_VALUE))
+                .addContainerGap(1271, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,7 +276,7 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(337, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("BIỂU MẪU", jPanel2);

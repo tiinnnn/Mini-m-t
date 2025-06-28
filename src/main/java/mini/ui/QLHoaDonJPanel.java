@@ -274,15 +274,15 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Tổng tiền:");
 
-        jLabel5.setText("jLabel5");
+        jLabel5.setText("Total");
 
         jLabel10.setText("Giảm giá:");
 
-        jLabel11.setText("jLabel11");
+        jLabel11.setText("Sale");
 
         jLabel12.setText("Thanh toán:");
 
-        jLabel13.setText("jLabel13");
+        jLabel13.setText("Payment");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
