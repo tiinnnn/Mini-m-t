@@ -6,7 +6,11 @@ package mini.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import mini.util.XAuth;
 import mini.util.XDialog;
+import mini.util.XIcon;
 
 /**
  *
@@ -19,7 +23,7 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
      */
     public ManHinhChinhJFrame() {
         initComponents();
-           
+        init();
         List<DanhMucBean> listDanhMuc = new ArrayList<>();
         listDanhMuc.add(new DanhMucBean("BanHang", jpnBanHang, jlbBanHang));
         listDanhMuc.add(new DanhMucBean("LichSu", jpnLichSu, jlbLichSu));
@@ -73,9 +77,6 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
         jlbChangeUser = new javax.swing.JLabel();
         jpnView = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
-        txtTen = new javax.swing.JLabel();
-        txtmanv = new javax.swing.JLabel();
-        txtchucvu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mini Mart\n");
@@ -402,7 +403,7 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
                 .addComponent(jpnPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnChangeUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jpnView.setBackground(new java.awt.Color(204, 204, 204));
@@ -426,16 +427,6 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
             }
         });
 
-        txtTen.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtTen.setText("Ten");
-
-        txtmanv.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtmanv.setText("manv");
-
-        txtchucvu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtchucvu.setForeground(new java.awt.Color(255, 51, 51));
-        txtchucvu.setText("chucvu");
-
         javax.swing.GroupLayout jpnRootLayout = new javax.swing.GroupLayout(jpnRoot);
         jpnRoot.setLayout(jpnRootLayout);
         jpnRootLayout.setHorizontalGroup(
@@ -444,37 +435,21 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpnRootLayout.createSequentialGroup()
-                        .addGap(0, 624, Short.MAX_VALUE)
-                        .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnRootLayout.createSequentialGroup()
-                                .addComponent(txtTen)
-                                .addGap(35, 35, 35)
-                                .addComponent(txtmanv)
-                                .addGap(35, 35, 35)
-                                .addComponent(txtchucvu)
-                                .addGap(29, 29, 29))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnRootLayout.createSequentialGroup()
-                                .addComponent(btnExit)
-                                .addGap(17, 17, 17))))
-                    .addGroup(jpnRootLayout.createSequentialGroup()
-                        .addComponent(jpnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jpnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnRootLayout.createSequentialGroup()
+                        .addComponent(btnExit)
+                        .addGap(23, 23, 23)))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
         jpnRootLayout.setVerticalGroup(
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnRootLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTen)
-                    .addComponent(txtmanv)
-                    .addComponent(txtchucvu))
-                .addGap(18, 18, 18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jpnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -563,8 +538,18 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jpnQLSP;
     private javax.swing.JPanel jpnRoot;
     private javax.swing.JPanel jpnView;
-    private javax.swing.JLabel txtTen;
-    private javax.swing.JLabel txtchucvu;
-    private javax.swing.JLabel txtmanv;
     // End of variables declaration//GEN-END:variables
+    public void showJDialog(JDialog dialog){
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }
+    public void init() {
+        this.setIconImage(XIcon.getIcon("/image/icon - Copy.png").getImage());
+        this.setLocationRelativeTo(null);
+        showJDialog(new ManHinhChoJDialog(this, true));
+        showJDialog(new DangNhapJDialog(this, true));
+        if(!XAuth.user.isManager()){
+            jPanel1.remove(jpnManager);
+        }
+    }
 }
