@@ -528,7 +528,7 @@ public class QLNhanVienJPanel extends javax.swing.JPanel implements QLNhanVienCo
 
     @Override
     public void clear() {
-         txtConfirm.setText("");
+        txtConfirm.setText("");
         this.setForm(new NhanVien());
         this.setEditable(false);
     }
