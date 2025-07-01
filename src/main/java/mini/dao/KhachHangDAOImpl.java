@@ -14,8 +14,8 @@ import mini.util.XQuery;
  * @author LENOVO
  */
 public class KhachHangDAOImpl implements KhachHangDAO{
-    String createSql = "INSERT INTO KhachHang(maKH,tenKH,sdt,hang) VALUES(?, ?, ?, ?)";
-    String updateSql = "UPDATE KhachHang SET tenKH=?, sdt=?, hang=? where maKH=?";
+    String createSql = "INSERT INTO KhachHang(maKH,tenKH,sdt,TongChiTieu,hang) VALUES(?, ?, ?, ?, ?)";
+    String updateSql = "UPDATE KhachHang SET tenKH=?, sdt=? ,TongChiTieu=? , hang=? where maKH=?";
     String deleteSql = "DELETE FROM KhachHang where maKH=?";
     String findAllSql = "SELECT * FROM KhachHang";
     String findByIdSql = "SELECT * FROM KhachHang where maKH=?";
@@ -25,6 +25,7 @@ public class KhachHangDAOImpl implements KhachHangDAO{
         entity.getMaKH(),
         entity.getTenKH(),
         entity.getSdt(),
+        entity.getTongChiTieu(),
         entity.getHang()
         };
         XJdbc.executeUpdate(createSql, values);  
@@ -36,6 +37,7 @@ public class KhachHangDAOImpl implements KhachHangDAO{
         Object[] values = {    
         entity.getTenKH(),
         entity.getSdt(),
+        entity.getTongChiTieu(),
         entity.getHang(),
         entity.getMaKH()
         };

@@ -49,16 +49,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jpnView" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnExit" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -96,8 +96,8 @@
                           <Component id="jpnLichSu" max="32767" attributes="0"/>
                           <Component id="jpnPass" max="32767" attributes="0"/>
                           <Component id="jpnQLKhachHang" max="32767" attributes="0"/>
-                          <Component id="jpnChangeUser" max="32767" attributes="0"/>
                           <Component id="jpnManager" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jpnChangeUser" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -299,17 +299,11 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jpnQLNhanVien" max="32767" attributes="0"/>
-                              <Component id="jpnQLLSP" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jpnQLSP" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jpnDoanhThu" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jpnQLHoaDon" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jpnQLNhanVien" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jpnQLLSP" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jpnQLSP" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jpnDoanhThu" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jpnQLHoaDon" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -383,7 +377,7 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="53" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="jlbQLLSP" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>

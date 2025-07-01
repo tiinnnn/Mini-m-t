@@ -484,9 +484,9 @@ public class QLNhanVienJPanel extends javax.swing.JPanel implements QLNhanVienCo
         Object[] rowData = {
         item.getMaNV(),
         item.getPassword(),
-        item.isEnabled(),
+        item.isEnabled()? "Hoạt động":"Khóa",
         item.getFullname(),
-        item.isManager(),
+        item.isManager()? "Quản lý":"Nhân viên",
         false
         };
         model.addRow(rowData);

@@ -4,10 +4,11 @@
  */
 package mini.ui;
 
-import javax.swing.JDialog;
+import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import mini.util.XAuth;
+import mini.util.XIcon;
 
 /**
  *
@@ -39,7 +40,7 @@ public class ChangeUserJPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         lblchucvu = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblphoto = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -69,7 +70,7 @@ public class ChangeUserJPanel extends javax.swing.JPanel {
         lblchucvu.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblchucvu.setText("Position");
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/8382754.png"))); // NOI18N
+        lblphoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/multiple-users-silhouette.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -97,7 +98,7 @@ public class ChangeUserJPanel extends javax.swing.JPanel {
                                 .addComponent(lblchucvu))
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(163, 163, 163)))
-                .addComponent(jLabel7)
+                .addComponent(lblphoto)
                 .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
@@ -105,7 +106,7 @@ public class ChangeUserJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
+                    .addComponent(lblphoto)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -134,10 +135,10 @@ public class ChangeUserJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblFullname;
     private javax.swing.JLabel lblMaNV;
     private javax.swing.JLabel lblchucvu;
+    private javax.swing.JLabel lblphoto;
     // End of variables declaration//GEN-END:variables
     
     public void init(){
