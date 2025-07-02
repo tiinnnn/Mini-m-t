@@ -37,7 +37,7 @@ public class LichSuJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        btnFilter.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnFilter.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnFilter.setText("Lọc");
         btnFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -45,7 +45,7 @@ public class LichSuJPanel extends javax.swing.JPanel {
             }
         });
 
-        cboTimeRanges.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        cboTimeRanges.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cboTimeRanges.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay", "Tuần này", "Tháng này", "Quý này", "Năm nay" }));
         cboTimeRanges.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +79,7 @@ public class LichSuJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblBills);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Đến ngày :");
 
         txtBegin.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +88,7 @@ public class LichSuJPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Từ ngày :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -108,7 +108,7 @@ public class LichSuJPanel extends javax.swing.JPanel {
                 .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cboTimeRanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)

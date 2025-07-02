@@ -42,6 +42,7 @@ public class DoanhThuJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        cboTimeRanges.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cboTimeRanges.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay", "Tuần này", "Tháng này", "Quý này", "Năm nay" }));
         cboTimeRanges.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,10 +112,13 @@ public class DoanhThuJPanel extends javax.swing.JPanel {
 
         tabs.addTab("Doanh thu từng loại", jPanel1);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Từ ngày:");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Đến ngày:");
 
+        btnFilter.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnFilter.setText("Lọc");
         btnFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
