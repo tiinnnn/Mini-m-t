@@ -4,17 +4,25 @@
  */
 package mini.ui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import mini.dao.LoaiDAO;
+import mini.dao.LoaiDAOImpl;
+import mini.entity.LoaiSanPham;
+import mini.util.XDialog;
+
 /**
  *
  * @author LENOVO
  */
-public class QLLoaiSPJPanel extends javax.swing.JPanel {
+public class QLLoaiSPJPanel extends javax.swing.JPanel implements QLLoaiController{
 
     /**
      * Creates new form QLLoaiSPJPanel
      */
     public QLLoaiSPJPanel() {
         initComponents();
+        this.open();
     }
 
     /**
@@ -26,20 +34,20 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabs = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblLoai = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtMaLoai = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTenLoai = new javax.swing.JTextField();
         btnCreate = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
@@ -51,7 +59,7 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        tabs.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -67,8 +75,18 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
         );
 
         jButton1.setText("Chọn tất cả");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Bỏ chọn tất cả");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Xoá các mục đã chọn");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +95,7 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblLoai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -95,7 +113,12 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblLoai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLoaiMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblLoai);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,7 +156,7 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
                 .addContainerGap(112, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("DANH SÁCH", jPanel1);
+        tabs.addTab("DANH SÁCH", jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -142,9 +165,9 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Mã Sản Phẩm");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtMaLoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtMaLoaiActionPerformed(evt);
             }
         });
 
@@ -214,8 +237,8 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(169, 169, 169)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-                    .addComponent(jTextField2)
+                    .addComponent(txtMaLoai, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                    .addComponent(txtTenLoai)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addContainerGap(1271, Short.MAX_VALUE))
@@ -244,11 +267,11 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTenLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate)
@@ -279,59 +302,73 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
                 .addContainerGap(225, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("BIỂU MẪU", jPanel2);
+        tabs.addTab("BIỂU MẪU", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 850, Short.MAX_VALUE)
+            .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 850, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(tabs)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtMaLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaLoaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtMaLoaiActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        this.deleteCheckedItems();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-
+        this.create();
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
+        this.update();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-
+        this.delete();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-
+        this.clear();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnMoveFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveFirstActionPerformed
-
+        this.moveFirst();
     }//GEN-LAST:event_btnMoveFirstActionPerformed
 
     private void btnMovePreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovePreviousActionPerformed
-
+        this.movePrevious();
     }//GEN-LAST:event_btnMovePreviousActionPerformed
 
     private void btnMoveNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveNextActionPerformed
-
+        this.moveNext();
     }//GEN-LAST:event_btnMoveNextActionPerformed
 
     private void btnMoveLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveLastActionPerformed
-
+        this.moveLast();
     }//GEN-LAST:event_btnMoveLastActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.checkAll();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.uncheckAll();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tblLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiMouseClicked
+        if (evt.getClickCount() == 2) {
+            this.edit();
+        }
+    }//GEN-LAST:event_tblLoaiMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -353,9 +390,156 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTabbedPane tabs;
+    private javax.swing.JTable tblLoai;
+    private javax.swing.JTextField txtMaLoai;
+    private javax.swing.JTextField txtTenLoai;
     // End of variables declaration//GEN-END:variables
+    LoaiDAO dao = new LoaiDAOImpl();
+    List<LoaiSanPham> items = List.of();
+    @Override
+    public void open() {
+        this.fillToTable();
+        this.clear();
+    }
+
+    @Override
+    public void setForm(LoaiSanPham entity) {
+        txtMaLoai.setText(entity.getMaLoai());
+        txtTenLoai.setText(entity.getTenLoai());
+    }
+
+    @Override
+    public LoaiSanPham getForm() {
+        LoaiSanPham entity= new LoaiSanPham();
+        entity.setMaLoai(txtMaLoai.getText());
+        entity.setTenLoai(txtTenLoai.getText());
+        return entity;
+    }
+
+    @Override
+    public void fillToTable() {
+        DefaultTableModel model = (DefaultTableModel) tblLoai.getModel();
+        model.setRowCount(0);
+        items = dao.findAll();
+        items.forEach(item -> {
+        Object[] rowData = {
+        item.getMaLoai(),
+        item.getTenLoai(),
+        false
+        };
+        model.addRow(rowData);
+        });
+    }
+
+    @Override
+    public void edit() {
+        LoaiSanPham entity = items.get(tblLoai.getSelectedRow());
+        this.setForm(entity);
+        this.setEditable(true);
+        tabs.setSelectedIndex(1);
+    }
+
+    @Override
+    public void create() {
+         LoaiSanPham entity = this.getForm();
+        dao.create(entity);
+        this.fillToTable();
+        this.clear();
+    }
+
+    @Override
+    public void update() {
+        LoaiSanPham entity = this.getForm();
+        dao.update(entity);
+        this.fillToTable();
+    }
+
+    @Override
+    public void delete() {
+        if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
+            String username = txtMaLoai.getText();
+            dao.deleteById(username);
+            this.fillToTable();
+            this.clear();
+        }  
+    }
+
+    @Override
+    public void clear() {
+        this.setForm(new LoaiSanPham());
+        this.setEditable(false);
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+        txtMaLoai.setEnabled(!editable);
+        btnCreate.setEnabled(!editable);
+        btnUpdate.setEnabled(editable);
+        btnDelete.setEnabled(editable);
+        int rowCount = tblLoai.getRowCount();
+        btnMoveFirst.setEnabled(editable && rowCount > 0);
+        btnMovePrevious.setEnabled(editable && rowCount > 0);
+        btnMoveNext.setEnabled(editable && rowCount > 0);
+        btnMoveLast.setEnabled(editable && rowCount > 0); 
+    }
+    private void setCheckedAll(boolean checked) {
+        for (int i = 0; i < tblLoai.getRowCount(); i++) {
+        tblLoai.setValueAt(checked, i, 6);
+        }
+    }
+    @Override
+    public void checkAll() {
+        this.setCheckedAll(true);   
+    }
+
+    @Override
+    public void uncheckAll() {
+        this.setCheckedAll(false);   
+    }
+
+    @Override
+    public void deleteCheckedItems() {
+        if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
+            for (int i = 0; i < tblLoai.getRowCount(); i++) {
+                if ((Boolean) tblLoai.getValueAt(i, 2)) {
+                    dao.deleteById(items.get(i).getMaLoai());
+                }
+            }
+            this.fillToTable();
+        }    
+    }
+
+    @Override
+    public void moveFirst() {
+        this.moveTo(0);   
+    }
+
+    @Override
+    public void movePrevious() {
+        this.moveTo(tblLoai.getSelectedRow() - 1);
+    }
+
+    @Override
+    public void moveNext() {
+        this.moveTo(tblLoai.getSelectedRow() + 1);
+    }
+
+    @Override
+    public void moveLast() {
+        this.moveTo(tblLoai.getRowCount() - 1);
+    }
+
+    @Override
+    public void moveTo(int index) {
+        if (index < 0) {
+            this.moveLast();
+        } else if (index >= tblLoai.getRowCount()) {
+            this.moveFirst();
+        } else {
+            tblLoai.clearSelection();
+            tblLoai.setRowSelectionInterval(index, index);
+            this.edit();
+        }  
+    }
 }
