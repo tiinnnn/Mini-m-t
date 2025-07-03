@@ -4,17 +4,28 @@
  */
 package mini.ui;
 
+import java.util.Date;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import mini.dao.HoaDonDAO;
+import mini.dao.HoaDonDAOImpl;
+import mini.entity.HoaDon;
+import mini.util.TimeRange;
+import mini.util.XAuth;
+import mini.util.XDate;
+
 /**
  *
  * @author LENOVO
  */
-public class LichSuJPanel extends javax.swing.JPanel {
+public class LichSuJPanel extends javax.swing.JPanel implements LichSuController{
 
     /**
      * Creates new form LichSuJPanel
      */
     public LichSuJPanel() {
         initComponents();
+        this.open();
     }
 
     /**
@@ -55,17 +66,17 @@ public class LichSuJPanel extends javax.swing.JPanel {
 
         tblBills.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã phiếu", "Khách hàng", "Thanh toán", "Thời điểm tạo", "Trạng thái"
+                "Mã phiếu", "Khách hàng", "Tổng tiền", "Giảm giá", "Thanh toán", "Ngày lập", "Trạng thái"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -132,15 +143,17 @@ public class LichSuJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
-        // TODO add your handling code here:
+        this.fillBills();
     }//GEN-LAST:event_btnFilterActionPerformed
 
     private void cboTimeRangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTimeRangesActionPerformed
-        // TODO add your handling code here:
+        this.selectTimeRange();
     }//GEN-LAST:event_cboTimeRangesActionPerformed
 
     private void tblBillsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillsMouseClicked
-        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            this.showBillJDialog();
+        }
     }//GEN-LAST:event_tblBillsMouseClicked
 
     private void txtBeginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBeginActionPerformed
@@ -158,4 +171,53 @@ public class LichSuJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtBegin;
     private javax.swing.JTextField txtEnd;
     // End of variables declaration//GEN-END:variables
+
+    HoaDonDAO billDao = new HoaDonDAOImpl();
+    List<HoaDon> bills = List.of();
+    @Override
+    public void open() {
+        this.selectTimeRange();
+    }
+
+    @Override
+    public void fillBills() {
+        String username = XAuth.user.getMaNV();
+        Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
+        Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
+        bills = billDao.findByUserAndTimeRange(username, begin, end);
+        DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
+        model.setRowCount(0);
+        bills.forEach(b -> {
+            Object[] row = { 
+                b.getId(), 
+                b.getMaKH(),
+                b.getTongTien(),
+                b.getGiamGia(),
+                b.getThanhToan(),
+                XDate.format(b.getNgayLap(), "HH:mm:ss dd-MM-yyyy"),
+                HoaDon.Status.values()[b.getStatus()].name()
+            };
+            model.addRow(row);
+        });
+    }
+
+    @Override
+    public void showBillJDialog() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void selectTimeRange() {
+        TimeRange range = TimeRange.today();
+        switch(cboTimeRanges.getSelectedIndex()){
+            case 0 -> range = TimeRange.today();
+            case 1 -> range = TimeRange.thisWeek();
+            case 2 -> range = TimeRange.thisMonth();
+            case 3 -> range = TimeRange.thisQuarter();
+            case 4 -> range = TimeRange.thisYear();
+        }
+        txtBegin.setText(XDate.format(range.getBegin()));
+        txtEnd.setText(XDate.format(range.getEnd()));
+        this.fillBills();
+    }
 }
