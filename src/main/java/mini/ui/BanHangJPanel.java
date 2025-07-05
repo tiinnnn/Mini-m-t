@@ -15,10 +15,13 @@ import mini.dao.HoaDonChiTietDAO;
 import mini.dao.HoaDonChiTietDaoImpl;
 import mini.dao.HoaDonDAO;
 import mini.dao.HoaDonDAOImpl;
+import mini.dao.KhachHangDAO;
+import mini.dao.KhachHangDAOImpl;
 import mini.dao.SanPhamDAO;
 import mini.dao.SanPhamDAOImpl;
 import mini.entity.HoaDon;
 import mini.entity.HoaDonChiTiet;
+import mini.entity.KhachHang;
 import mini.entity.SanPham;
 import mini.util.XAuth;
 import mini.util.XDate;
@@ -65,11 +68,11 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
         jLabel10 = new javax.swing.JLabel();
         txtUsername1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lblPercent = new javax.swing.JLabel();
+        lblMoney = new javax.swing.JLabel();
         btnTao = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -156,8 +159,8 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Tổng tiền:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Total");
+        lblTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTotal.setText("Total");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Khấu trự hạng:");
@@ -165,11 +168,11 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Thành tiền:");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel11.setText("Percent");
+        lblPercent.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblPercent.setText("Percent");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel12.setText("Money");
+        lblMoney.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblMoney.setText("Money");
 
         btnTao.setText("Tạo phiếu");
         btnTao.addActionListener(new java.awt.event.ActionListener() {
@@ -224,9 +227,9 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
                     .addComponent(jLabel6))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPercent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(76, 76, 76))
         );
         layout.setVerticalGroup(
@@ -268,15 +271,15 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(lblTotal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel11))
+                    .addComponent(lblPercent))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel12))
+                    .addComponent(lblMoney))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,17 +331,17 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
     private javax.swing.JButton btnTao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMoney;
+    private javax.swing.JLabel lblPercent;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblBillDetails;
     private javax.swing.JTextField txtCheckout;
     private javax.swing.JTextField txtId;
@@ -352,6 +355,8 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
     HoaDonDAO dao = new HoaDonDAOImpl();
     HoaDonChiTietDAO billDetailDao = new HoaDonChiTietDaoImpl();
     List<HoaDonChiTiet> details = new ArrayList<>();
+    KhachHangDAO khDAO=new KhachHangDAOImpl();
+    KhachHang KH=new KhachHang();
 
     //a
     @Override
@@ -412,8 +417,20 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
         if (XDialog.confirm("Bạn muốn thanh toán phiếu bán hàng?")) {
             bill.setStatus(HoaDon.Status.Completed.ordinal());
             bill.setNgayLap(new Date());
+            KH = khDAO.findById(txtKH.getText());
+            txtUsername1.setText(KH.getHang());
+            bill.setMaKH(KH.getMaKH());
+            bill.setMaNV(XAuth.user.getMaNV());
+            String percentText = lblPercent.getText().replace("%", "").trim(); // "10"
+            float giamGia = Float.parseFloat(percentText) / 100f; // → 0.10
+            bill.setGiamGia(giamGia);
+            bill.setThanhToan(Float.parseFloat(lblMoney.getText()));
+            bill.setTongTien(Float.parseFloat(lblTotal.getText()));
+            bill.setId(Long.valueOf(txtId.getText()));
             dao.update(bill);
             setForm(bill);
+            updateBillSummary();
+            capNhatHangTuDong();
         }
     }
 
@@ -455,13 +472,12 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
             };
             model.addRow(rowData);
         }
+        updateBillSummary();
     }
 
     void setForm(HoaDon bill) {
         txtId.setText(String.valueOf(bill.getId()));
-        txtKH.setText(bill.getMaKH());
         txtUsername.setText(bill.getMaNV());
-
         String[] statuses = {"Servicing", "Completed", "Canceled"};
         txtStatus.setText(statuses[bill.getStatus()]);
 
@@ -496,12 +512,57 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
             bill = new HoaDon();
             bill.setStatus(HoaDon.Status.Servicing.ordinal());
             bill.setMaNV(XAuth.user.getMaNV());
-            // Chèn vào DB và lấy lại ID vừa tạo
-            Long newId = dao.insertAndReturnId(bill); // DAO cần sửa để trả về ID
+            Long newId = dao.insertAndReturnId(bill);
             if (newId != null) {
                 bill.setId(newId);
                 setForm(bill);
                 fillHoaDonChiTiet();
             }
+    }
+    public void updateBillSummary() {
+        float tongTien = 0f;
+
+        for (HoaDonChiTiet d : details) {
+            tongTien += d.getThanhTien();
+        }
+        lblTotal.setText(String.format("%.1f", tongTien));
+
+        KhachHang kh = khDAO.findById(txtKH.getText());
+        if (kh == null || kh.getHang() == null) {
+            lblPercent.setText("0%");
+            lblMoney.setText(String.format("%.1f", tongTien));
+            return;
+        }
+
+        float khauTru = switch (kh.getHang()) {
+            case "Thường"     -> 0.00f;
+            case "Đồng"       -> 0.05f;
+            case "Bạc"        -> 0.07f;
+            case "Vàng"       -> 0.10f;
+            case "Kim cương" -> 0.12f;
+            default           -> 0.00f;
+        };
+
+        lblPercent.setText(String.format("%.0f%%", khauTru * 100));
+        float thanhTienSauGiam = tongTien * (1 - khauTru);
+        lblMoney.setText(String.format("%.1f", thanhTienSauGiam));
+    }
+
+    public void capNhatHangTuDong() {
+        float soTienMoi = bill.getThanhToan();
+        float tongChiTieu = KH.getTongChiTieu() + soTienMoi;
+        KH.setTongChiTieu(tongChiTieu); 
+        if (tongChiTieu >= 25_000_000) {
+            KH.setHang("Kim cương");
+        } else if (tongChiTieu >= 10_000_000) {
+            KH.setHang("Vàng");
+        } else if (tongChiTieu >= 5_000_000) {
+            KH.setHang("Bạc");
+        } else if (tongChiTieu >= 2_500_000) {
+            KH.setHang("Đồng");
+        } else {
+            KH.setHang("Thường");
+        }
+        khDAO.update(KH);
     }
 }
