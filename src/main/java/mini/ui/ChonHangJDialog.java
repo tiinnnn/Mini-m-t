@@ -4,11 +4,25 @@
  */
 package mini.ui;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import lombok.Setter;
+import mini.dao.HoaDonChiTietDaoImpl;
+import mini.dao.LoaiDAO;
+import mini.dao.LoaiDAOImpl;
+import mini.dao.SanPhamDAO;
+import mini.dao.SanPhamDAOImpl;
+import mini.entity.HoaDon;
+import mini.entity.HoaDonChiTiet;
+import mini.entity.LoaiSanPham;
+import mini.entity.SanPham;
+import mini.util.XDialog;
+
 /**
  *
  * @author LENOVO
  */
-public class ChonHangJDialog extends javax.swing.JDialog {
+public class ChonHangJDialog extends javax.swing.JDialog implements ChonHangController{
 
     /**
      * Creates new form ChonHangJDialog
@@ -16,6 +30,7 @@ public class ChonHangJDialog extends javax.swing.JDialog {
     public ChonHangJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.open();
     }
 
     /**
@@ -30,7 +45,7 @@ public class ChonHangJDialog extends javax.swing.JDialog {
         jScrollPane5 = new javax.swing.JScrollPane();
         tblCategories = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblDrinks = new javax.swing.JTable();
+        tblSP = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -54,7 +69,7 @@ public class ChonHangJDialog extends javax.swing.JDialog {
         });
         jScrollPane5.setViewportView(tblCategories);
 
-        tblDrinks.setModel(new javax.swing.table.DefaultTableModel(
+        tblSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -65,12 +80,12 @@ public class ChonHangJDialog extends javax.swing.JDialog {
                 "Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "Giảm giá SP"
             }
         ));
-        tblDrinks.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblSP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblDrinksMouseClicked(evt);
+                tblSPMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tblDrinks);
+        jScrollPane3.setViewportView(tblSP);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton1.setText("Đóng");
@@ -113,12 +128,14 @@ public class ChonHangJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblCategoriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoriesMouseClicked
-        
+        this.fillSP();
     }//GEN-LAST:event_tblCategoriesMouseClicked
 
-    private void tblDrinksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDrinksMouseClicked
-        
-    }//GEN-LAST:event_tblDrinksMouseClicked
+    private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
+        if(evt.getClickCount() == 1){
+            this.addSPToBill();
+        }
+    }//GEN-LAST:event_tblSPMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
@@ -171,6 +188,59 @@ public class ChonHangJDialog extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable tblCategories;
-    private javax.swing.JTable tblDrinks;
+    private javax.swing.JTable tblSP;
     // End of variables declaration//GEN-END:variables
+
+    @Setter HoaDon bill;
+    LoaiDAO categoryDao = new LoaiDAOImpl();
+    List<LoaiSanPham> categories = List.of();
+    SanPhamDAO SPDao = new SanPhamDAOImpl();
+    List<SanPham> SPP = List.of();
+
+    @Override
+    public void open() {
+        this.fillLoai();
+        this.fillSP();
+    }
+
+    @Override
+    public void fillLoai() {
+        categories = categoryDao.findAll();
+        DefaultTableModel model = (DefaultTableModel) tblCategories.getModel();
+        model.setRowCount(0);
+        categories.forEach(d -> model.addRow(new Object[] {d.getTenLoai()}));
+        tblCategories.setRowSelectionInterval(0, 0);
+    }
+
+    @Override
+    public void fillSP() {
+        LoaiSanPham category = categories.get(tblCategories.getSelectedRow());
+        SPP = SPDao.findByLoaiId(category.getMaLoai());
+        DefaultTableModel model = (DefaultTableModel) tblSP.getModel();
+        model.setRowCount(0);
+        SPP.forEach(d -> {
+        Object[] row = {
+        d.getMaSP(), 
+        d.getTenSP(), 
+        String.format("$%.1f", d.getGiaBan()), 
+        String.format("%.0f%%", d.getGiamGiaSP()*100)
+        };
+        model.addRow(row);
+        });
+    }
+
+    @Override
+    public void addSPToBill() {
+        String quantity = XDialog.prompt("Số lượng?");
+        if(quantity != null && quantity.length() > 0){
+            SanPham SP = SPP.get(tblSP.getSelectedRow());
+            HoaDonChiTiet detail = new HoaDonChiTiet();
+            detail.setBillId(bill.getId());
+            detail.setMaSP(SP.getMaSP());
+            detail.setSoLuong(Integer.parseInt(quantity));
+            detail.setDonGia(SP.getGiaBan());
+            detail.setGiamGiaSP(SP.getGiamGiaSP());
+            new HoaDonChiTietDaoImpl().create(detail);
+        }
+    }
 }

@@ -23,4 +23,5 @@ public class HoaDonChiTiet {
     private int soLuong;
     private float donGia;
     private float giamGiaSP;
+    private float thanhTien;
 }

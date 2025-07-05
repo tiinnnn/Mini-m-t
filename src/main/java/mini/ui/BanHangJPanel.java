@@ -4,11 +4,31 @@
  */
 package mini.ui;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import lombok.Setter;
+import mini.dao.HoaDonChiTietDAO;
+import mini.dao.HoaDonChiTietDaoImpl;
+import mini.dao.HoaDonDAO;
+import mini.dao.HoaDonDAOImpl;
+import mini.dao.SanPhamDAO;
+import mini.dao.SanPhamDAOImpl;
+import mini.entity.HoaDon;
+import mini.entity.HoaDonChiTiet;
+import mini.entity.SanPham;
+import mini.util.XAuth;
+import mini.util.XDate;
+import mini.util.XDialog;
+
 /**
  *
  * @author LENOVO
  */
-public class BanHangJPanel extends javax.swing.JPanel {
+public class BanHangJPanel extends javax.swing.JPanel implements BanHangController{
 
     /**
      * Creates new form BanHangJPanel
@@ -41,7 +61,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         btnCheckout = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtId1 = new javax.swing.JTextField();
+        txtKH = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtUsername1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -50,6 +70,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        btnTao = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -71,7 +92,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("Thời điểm thanh toán");
 
-        tblBillDetails.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tblBillDetails.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblBillDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -150,6 +171,13 @@ public class BanHangJPanel extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setText("Money");
 
+        btnTao.setText("Tạo phiếu");
+        btnTao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,7 +195,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(txtUsername1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtKH, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(92, 92, 92)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,8 +210,10 @@ public class BanHangJPanel extends javax.swing.JPanel {
                             .addGap(18, 18, 18)
                             .addComponent(btnAdd)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnTao, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -218,7 +248,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -248,38 +278,46 @@ public class BanHangJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel6)
                     .addComponent(jLabel12))
                 .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblBillDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillDetailsMouseClicked
-
+        if (evt.getClickCount() == 2) {
+            this.updateQuantity();
+        }
     }//GEN-LAST:event_tblBillDetailsMouseClicked
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-
+        this.removeSP();
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
+        this.showChonHangJDialog();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-
+        this.checkout();
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-
+        this.cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
+
+    private void btnTaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoActionPerformed
+        this.createNewBill();
+    }//GEN-LAST:event_btnTaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -287,6 +325,7 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCheckout;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JButton btnTao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -303,9 +342,166 @@ public class BanHangJPanel extends javax.swing.JPanel {
     private javax.swing.JTable tblBillDetails;
     private javax.swing.JTextField txtCheckout;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtId1;
+    private javax.swing.JTextField txtKH;
     private javax.swing.JTextField txtStatus;
     private javax.swing.JTextField txtUsername;
     private javax.swing.JTextField txtUsername1;
     // End of variables declaration//GEN-END:variables
+    
+    @Setter HoaDon bill;
+    HoaDonDAO dao = new HoaDonDAOImpl();
+    HoaDonChiTietDAO billDetailDao = new HoaDonChiTietDaoImpl();
+    List<HoaDonChiTiet> details = new ArrayList<>();
+
+    //a
+    @Override
+    public void open() {
+        this.setForm(bill);
+        this.fillHoaDonChiTiet();    
+    }
+    //a
+    @Override
+    public void close() {
+        if (details.isEmpty()) {
+            dao.deleteById(bill.getId());
+            clearForm(); // Xóa dữ liệu khỏi form
+        }
+    }
+
+    @Override
+    public void showChonHangJDialog() {
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        ChonHangJDialog dialog = new ChonHangJDialog(parentFrame, true);
+        dialog.setLocationRelativeTo(parentFrame);
+        dialog.setBill(bill);
+        dialog.setVisible(true);
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                BanHangJPanel.this.fillHoaDonChiTiet();
+            }
+        });
+    }
+
+    @Override
+    public void removeSP() {
+        for (int i = 0; i < tblBillDetails.getRowCount(); i++) {
+            Boolean checked = (Boolean) tblBillDetails.getValueAt(i, 0);
+            if (checked) {
+                billDetailDao.deleteById(details.get(i).getId());
+            }
+        }
+        fillHoaDonChiTiet();
+    }
+
+    @Override
+    public void updateQuantity() {
+        if (bill.getStatus() == 0) {
+            String input = XDialog.prompt("Số lượng mới?");
+            if (input != null && !input.isBlank()) {
+                HoaDonChiTiet detail = details.get(tblBillDetails.getSelectedRow());
+                detail.setSoLuong(Integer.parseInt(input));
+                billDetailDao.update(detail);
+                fillHoaDonChiTiet();
+            }
+        }
+    }
+
+    @Override
+    public void checkout() {
+        if (XDialog.confirm("Bạn muốn thanh toán phiếu bán hàng?")) {
+            bill.setStatus(HoaDon.Status.Completed.ordinal());
+            bill.setNgayLap(new Date());
+            dao.update(bill);
+            setForm(bill);
+        }
+    }
+
+    @Override
+    public void cancel() {
+        if (details.isEmpty()) {
+            dao.deleteById(bill.getId());
+            clearForm(); // Xóa form sau khi xóa hóa đơn
+        } else if (XDialog.confirm("Bạn muốn hủy phiếu bán hàng?")) {
+            bill.setStatus(HoaDon.Status.Canceled.ordinal());
+            dao.update(bill);
+            setForm(bill);
+        }
+    }
+
+    @Override
+    public void fillHoaDonChiTiet() {
+        DefaultTableModel model = (DefaultTableModel) tblBillDetails.getModel();
+        model.setRowCount(0);
+        details.clear();
+
+        if (!txtId.getText().isBlank()) {
+            Long billId = Long.valueOf(txtId.getText());
+            details = billDetailDao.findByBillId(billId);
+        }
+
+        SanPhamDAO spdao = new SanPhamDAOImpl();
+        for (HoaDonChiTiet d : details) {
+            SanPham sp = spdao.findById(d.getMaSP());
+
+            Object[] rowData = {
+                false,
+                d.getBillId(),
+                sp.getTenSP(),
+                String.format("%.1f VNĐ", d.getDonGia()),
+                String.format("%.0f%%", d.getGiamGiaSP() * 100),
+                d.getSoLuong(),
+                String.format("%.1f VNĐ", d.getThanhTien())
+            };
+            model.addRow(rowData);
+        }
+    }
+
+    void setForm(HoaDon bill) {
+        txtId.setText(String.valueOf(bill.getId()));
+        txtKH.setText(bill.getMaKH());
+        txtUsername.setText(bill.getMaNV());
+
+        String[] statuses = {"Servicing", "Completed", "Canceled"};
+        txtStatus.setText(statuses[bill.getStatus()]);
+
+        if (bill.getNgayLap() != null) {
+            txtCheckout.setText(XDate.format(bill.getNgayLap(), "HH:mm:ss dd-MM-yyyy"));
+        }
+        boolean editable = (bill.getStatus() == 0);
+        btnAdd.setEnabled(editable);
+        btnCancel.setEnabled(editable);
+        btnCheckout.setEnabled(editable);
+        btnRemove.setEnabled(editable);
+    }
+
+    // 🧼 Xóa form để chuẩn bị tạo hóa đơn mới
+    void clearForm() {
+        txtId.setText("");
+        txtKH.setText("");
+        txtUsername.setText("");
+        txtStatus.setText("Servicing");
+        txtCheckout.setText("");
+        ((DefaultTableModel) tblBillDetails.getModel()).setRowCount(0);
+        details.clear();
+        btnAdd.setEnabled(true);
+        btnCancel.setEnabled(true);
+        btnCheckout.setEnabled(true);
+        btnRemove.setEnabled(true);
+    }
+
+// 🆕 Tạo mới một hóa đơn rỗng
+    public void createNewBill() {
+            // Khởi tạo hóa đơn mới
+            bill = new HoaDon();
+            bill.setStatus(HoaDon.Status.Servicing.ordinal());
+            bill.setMaNV(XAuth.user.getMaNV());
+            // Chèn vào DB và lấy lại ID vừa tạo
+            Long newId = dao.insertAndReturnId(bill); // DAO cần sửa để trả về ID
+            if (newId != null) {
+                bill.setId(newId);
+                setForm(bill);
+                fillHoaDonChiTiet();
+            }
+    }
 }

@@ -4,6 +4,12 @@
  */
 package mini.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import mini.entity.HoaDon;
@@ -83,5 +89,30 @@ public class HoaDonDAOImpl implements HoaDonDAO {
     public HoaDon findById(Long id) {
         return XQuery.getSingleBean(HoaDon.class, findByIdSql, id);  
     }
-    
+
+    @Override
+    public Long insertAndReturnId(HoaDon bill) {
+    Long generatedId = null;
+    String sql = "INSERT INTO HoaDon (MaKH, MaNV, NgayLap, Status) VALUES (?, ?, ?, ?)";
+    try (Connection con = XJdbc.openConnection();
+         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+        ps.setString(1, bill.getMaKH());
+        ps.setString(2, bill.getMaNV());
+        ps.setTimestamp(3, new Timestamp(bill.getNgayLap().getTime()));
+        ps.setInt(4, bill.getStatus());
+
+        ps.executeUpdate();
+
+        try (ResultSet rs = ps.getGeneratedKeys()) {
+            if (rs.next()) {
+                generatedId = rs.getLong(1);
+            }
+        }
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return generatedId;
+}
 }

@@ -493,7 +493,7 @@ public class QLSanPhamJPanel extends javax.swing.JPanel implements QLSanPhamCont
         LoaiDAO cdao = new LoaiDAOImpl();
         items2 = cdao.findAll();
         items2.forEach(Loai -> {
-        cboModel.addElement(Loai.getTenLoai());
+        cboModel.addElement(Loai);
         tblModel.addRow(new Object[]{Loai.getTenLoai()});
         });
         tblLoai.setRowSelectionInterval(0, 0);
@@ -513,7 +513,7 @@ public class QLSanPhamJPanel extends javax.swing.JPanel implements QLSanPhamCont
         txtNhap.setText(String.valueOf(entity.getGiaNhap()));
         txtBan.setText(String.valueOf(entity.getGiaBan()));
         txtSoLuong.setText(String.valueOf(entity.getSoLuong()));
-        Sldiscount.setValue((int) entity.getGiamGiaSP());
+        Sldiscount.setValue((int) (entity.getGiamGiaSP() * 100));
         String catId = entity.getMaLoai();
         for (LoaiSanPham c : items2) {
             if (c.getMaLoai().equals(catId)) {
@@ -531,7 +531,7 @@ public class QLSanPhamJPanel extends javax.swing.JPanel implements QLSanPhamCont
         entity.setGiaNhap(Float.parseFloat(txtNhap.getText()));
         entity.setGiaBan(Float.parseFloat(txtBan.getText()));
         entity.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
-        entity.setGiamGiaSP(Sldiscount.getValue());
+        entity.setGiamGiaSP(Sldiscount.getValue()/100);
         LoaiSanPham selectedCategory = (LoaiSanPham) cboLoai.getSelectedItem();
         String categoryId = selectedCategory.getMaLoai();
         entity.setMaLoai(categoryId);
@@ -550,7 +550,7 @@ public class QLSanPhamJPanel extends javax.swing.JPanel implements QLSanPhamCont
                 item.getTenSP(),
                 item.getGiaNhap()+" VND",
                 item.getGiaBan()+" VND",
-                item.getGiamGiaSP()+"%",
+                item.getGiamGiaSP()*100+"%",
                 item.getSoLuong(),
                 false
             };
@@ -623,14 +623,14 @@ public class QLSanPhamJPanel extends javax.swing.JPanel implements QLSanPhamCont
 
     private void setCheckedAll(boolean checked) {
         for (int i = 0; i < tblSanPham.getRowCount(); i++) {
-        tblSanPham.setValueAt(checked, i, 7);
+        tblSanPham.setValueAt(checked, i, 6);
         }
     }
     @Override
     public void deleteCheckedItems() {
         if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
             for (int i = 0; i < tblSanPham.getRowCount(); i++) {
-                if ((Boolean) tblSanPham.getValueAt(i, 2)) {
+                if ((Boolean) tblSanPham.getValueAt(i, 6)) {
                     dao.deleteById(items.get(i).getMaSP());
                 }
             }

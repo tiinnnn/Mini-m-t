@@ -19,4 +19,8 @@ import lombok.NoArgsConstructor;
 public class LoaiSanPham {
     private String maLoai;
     private String tenLoai;
+    @Override
+    public String toString() {
+        return this.tenLoai;
+    }
 }

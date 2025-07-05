@@ -18,7 +18,7 @@ public class SanPhamDAOImpl implements SanPhamDAO{
     String updateSql = "UPDATE SanPham SET tenSP=?, giaNhap=?, giaBan=?, soLuong=?, giamGiaSP=?, hinhAnh=?, maLoai=? where maSP=?";
     String deleteSql = "DELETE FROM SanPham where maSP=?";
     String findAllSql = "SELECT * FROM SanPham";
-    String findByIdSql = "SELECT * FROM SanPham where maSP?";
+    String findByIdSql = "SELECT * FROM SanPham where maSP=?";
     String findByCategoryIdSql = "SELECT maSP,tenSP,giaNhap,giaBan,soLuong,giamGiaSP,hinhAnh,maLoai FROM SanPham WHERE maLoai=?";
     @Override
     public SanPham create(SanPham entity) {

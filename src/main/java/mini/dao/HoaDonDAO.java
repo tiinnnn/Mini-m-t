@@ -16,4 +16,6 @@ public interface HoaDonDAO extends CrudDAO<HoaDon, Long>{
     List<HoaDon> findByUsername(String username);
     List<HoaDon> findByTimeRange(Date begin, Date end);
     List<HoaDon> findByUserAndTimeRange(String username, Date begin, Date end);
+
+    public Long insertAndReturnId(HoaDon bill);
 }

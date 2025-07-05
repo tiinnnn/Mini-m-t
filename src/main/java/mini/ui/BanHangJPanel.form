@@ -35,7 +35,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtUsername1" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                          <Component id="txtId1" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="txtKH" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
@@ -53,8 +53,10 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnTao" min="-2" pref="136" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnCancel" min="-2" pref="136" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnCheckout" min="-2" pref="136" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -101,7 +103,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtId1" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtKH" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -141,11 +143,14 @@
                   <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnRemove" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="btnAdd" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="btnCancel" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="btnCheckout" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnCheckout" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnRemove" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="btnAdd" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="btnCancel" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="btnTao" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="54" max="32767" attributes="0"/>
           </Group>
@@ -206,7 +211,7 @@
         <Component class="javax.swing.JTable" name="tblBillDetails">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="18" style="1"/>
+              <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="7" rowCount="4">
@@ -269,7 +274,7 @@
         <Property name="text" type="java.lang.String" value="T&#xea;n kh&#xe1;ch h&#xe0;ng"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtId1">
+    <Component class="javax.swing.JTextField" name="txtKH">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
@@ -328,6 +333,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Money"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnTao">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="T&#x1ea1;o phi&#x1ebf;u"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTaoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
