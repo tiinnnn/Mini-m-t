@@ -418,6 +418,10 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
             bill.setStatus(HoaDon.Status.Completed.ordinal());
             bill.setNgayLap(new Date());
             KH = khDAO.findById(txtKH.getText());
+            if (KH == null) {
+            XDialog.alert("Không tìm thấy thông tin khách hàng!");
+            return;
+            }
             txtUsername1.setText(KH.getHang());
             bill.setMaKH(KH.getMaKH());
             bill.setMaNV(XAuth.user.getMaNV());
@@ -430,7 +434,9 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
             dao.update(bill);
             setForm(bill);
             updateBillSummary();
-            capNhatHangTuDong();
+            if(!KH.getMaKH().equals("KH01")){ 
+                capNhatHangTuDong();
+            }
         }
     }
 

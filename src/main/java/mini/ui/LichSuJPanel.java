@@ -4,8 +4,12 @@
  */
 package mini.ui;
 
+import java.awt.BorderLayout;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import mini.dao.HoaDonDAO;
 import mini.dao.HoaDonDAOImpl;
@@ -191,9 +195,9 @@ public class LichSuJPanel extends javax.swing.JPanel implements LichSuController
             Object[] row = { 
                 b.getId(), 
                 b.getMaKH(),
-                b.getTongTien(),
-                b.getGiamGia(),
-                b.getThanhToan(),
+                String.format("%.1f VNĐ", b.getTongTien()),
+                String.format("%.0f%%", b.getGiamGia() * 100),
+                String.format("%.1f VNĐ", b.getThanhToan()),
                 XDate.format(b.getNgayLap(), "HH:mm:ss dd-MM-yyyy"),
                 HoaDon.Status.values()[b.getStatus()].name()
             };
@@ -203,7 +207,8 @@ public class LichSuJPanel extends javax.swing.JPanel implements LichSuController
 
     @Override
     public void showBillJDialog() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ManHinhChinhJFrame mainFrame = new ManHinhChinhJFrame();
+        mainFrame.showBillJDialog();
     }
 
     @Override

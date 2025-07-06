@@ -4,17 +4,27 @@
  */
 package mini.ui;
 
+import java.util.Date;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import mini.dao.DoanhThuDAO;
+import mini.dao.DoanhThuDAOImpl;
+import mini.entity.DoanhThu;
+import mini.util.TimeRange;
+import mini.util.XDate;
+
 /**
  *
  * @author LENOVO
  */
-public class DoanhThuJPanel extends javax.swing.JPanel {
+public class DoanhThuJPanel extends javax.swing.JPanel implements DoanhThuController{
 
     /**
      * Creates new form DoanhThuJPanel
      */
     public DoanhThuJPanel() {
         initComponents();
+        this.open();
     }
 
     /**
@@ -30,12 +40,12 @@ public class DoanhThuJPanel extends javax.swing.JPanel {
         txtBegin = new javax.swing.JTextField();
         txtEnd = new javax.swing.JTextField();
         tabs = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblByUser = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblByCategory = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblByUser = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnFilter = new javax.swing.JButton();
@@ -56,43 +66,15 @@ public class DoanhThuJPanel extends javax.swing.JPanel {
             }
         });
 
-        tblByUser.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Nhân viên", "Doanh thu", "Số bill", "Bill đầu tiên", "Bill cuối cùng"
-            }
-        ));
-        jScrollPane2.setViewportView(tblByUser);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        tabs.addTab("Doanh thu từng nhân viên", jPanel2);
-
         tblByCategory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Loại", "Doanh thu", "Số lượng", "Giá thấp nhất", "Giá cao nhất", "Giá trung bình"
+                "Loại", "Doanh thu", "Số lượng", "Giá thấp nhất", "Giá cao nhất", "Giá TB", "Lợi nhuận"
             }
         ));
         jScrollPane1.setViewportView(tblByCategory);
@@ -101,16 +83,40 @@ public class DoanhThuJPanel extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
         );
 
         tabs.addTab("Doanh thu từng loại", jPanel1);
+
+        tblByUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Nhân viên", "Doanh thu", "Số lượng", "Bill đầu tiên", "Bill cuối cùng"
+            }
+        ));
+        jScrollPane2.setViewportView(tblByUser);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 787, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+        );
+
+        tabs.addTab("Doanh thu từng nhân viên", jPanel2);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Từ ngày:");
@@ -131,10 +137,9 @@ public class DoanhThuJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtBegin, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -145,8 +150,11 @@ public class DoanhThuJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnFilter)
                         .addGap(18, 18, 18)
-                        .addComponent(cboTimeRanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                        .addComponent(cboTimeRanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,21 +168,21 @@ public class DoanhThuJPanel extends javax.swing.JPanel {
                     .addComponent(btnFilter)
                     .addComponent(cboTimeRanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(199, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void cboTimeRangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTimeRangesActionPerformed
-
+        this.selectTimeRange();
     }//GEN-LAST:event_cboTimeRangesActionPerformed
 
     private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
-
+        this.fillRevenue();
     }//GEN-LAST:event_tabsStateChanged
 
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
-
+        this.fillRevenue();
     }//GEN-LAST:event_btnFilterActionPerformed
 
 
@@ -193,4 +201,70 @@ public class DoanhThuJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtBegin;
     private javax.swing.JTextField txtEnd;
     // End of variables declaration//GEN-END:variables
+    DoanhThuDAO dao = new DoanhThuDAOImpl();
+    @Override
+    public void open() {
+        this.selectTimeRange(); 
+    }
+
+    @Override
+    public void selectTimeRange() {
+        TimeRange range = TimeRange.today(); 
+            switch (cboTimeRanges.getSelectedIndex()) { 
+            case 0 -> range = TimeRange.today(); 
+            case 1 -> range = TimeRange.thisWeek(); 
+            case 2 -> range = TimeRange.thisMonth(); 
+            case 3 -> range = TimeRange.thisQuarter(); 
+            case 4 -> range = TimeRange.thisYear(); 
+        } 
+        txtBegin.setText(XDate.format(range.getBegin(), "MM/dd/yyyy")); 
+        txtEnd.setText(XDate.format(range.getEnd(), "MM/dd/yyyy")); 
+        //this.fillRevenue();
+    }
+
+   @Override
+    public void fillRevenue() {
+        Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy"); 
+        Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy"); 
+        switch(tabs.getSelectedIndex()){ 
+            case 0 -> this.fillRevenueByCategory(begin, end); 
+            case 1 -> this.fillRevenueByUser(begin, end); 
+        }  
+    }
+    private void fillRevenueByCategory(Date begin, Date end) { 
+        List<DoanhThu.ByLoai> items = dao.getByCategory(begin, end); 
+
+        DefaultTableModel model = (DefaultTableModel) tblByCategory.getModel(); 
+        model.setRowCount(0); 
+
+        for (DoanhThu.ByLoai item : items) {
+            Object[] row = { 
+                item.getMaLoai(), 
+                String.format("%.2f VNĐ", item.getDoanhThu()), 
+                item.getSoLuong(), 
+                String.format("%.2f VNĐ", item.getMinPrice()), 
+                String.format("%.2f VNĐ", item.getMaxPrice()), 
+                String.format("%.2f VNĐ", item.getAvgPrice()),
+                String.format("%.2f VNĐ", item.getProfit())
+            }; 
+            model.addRow(row); 
+        }
+    }
+
+    private void fillRevenueByUser(Date begin, Date end) { 
+        List<DoanhThu.ByNV> items = dao.getByUser(begin, end); 
+        DefaultTableModel model = (DefaultTableModel) tblByUser.getModel(); 
+        model.setRowCount(0); 
+
+        for (DoanhThu.ByNV item : items) {
+            Object[] row = { 
+                item.getMaNV(), 
+                String.format("%.2f VNĐ", item.getDoanhThu()), 
+                item.getSoLuong(), 
+                XDate.format(item.getFirstTime(), "HH:mm:ss dd-MM-yyyy"), 
+                XDate.format(item.getLastTime(), "HH:mm:ss dd-MM-yyyy") 
+            }; 
+            model.addRow(row); 
+        }
+    }
 }

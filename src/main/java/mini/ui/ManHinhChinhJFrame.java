@@ -4,11 +4,15 @@
  */
 package mini.ui;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import mini.util.XAuth;
 import mini.util.XDialog;
 import mini.util.XIcon;
@@ -557,5 +561,12 @@ public class ManHinhChinhJFrame extends javax.swing.JFrame {
         }
         jPanel1.revalidate();
         jPanel1.repaint();
+    }
+    public JPanel getJpnView() {
+    return jpnView;
+    }
+    public void showBillJDialog() {
+        ChuyenManHinhController controller = new ChuyenManHinhController(jpnView);
+        controller.setView (jpnBanHang, jlbBanHang);
     }
 }
