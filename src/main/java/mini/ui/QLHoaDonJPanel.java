@@ -4,17 +4,35 @@
  */
 package mini.ui;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import mini.dao.HoaDonChiTietDAO;
+import mini.dao.HoaDonChiTietDaoImpl;
+import mini.dao.HoaDonDAO;
+import mini.dao.HoaDonDAOImpl;
+import mini.entity.HoaDon;
+import mini.entity.HoaDonChiTiet;
+import mini.util.TimeRange;
+import mini.util.XDate;
+import mini.util.XDialog;
+
 /**
  *
  * @author LENOVO
  */
-public class QLHoaDonJPanel extends javax.swing.JPanel {
+public class QLHoaDonJPanel extends javax.swing.JPanel implements QLHoaDonController{
 
     /**
      * Creates new form QLHoaDonJPanel
      */
     public QLHoaDonJPanel() {
         initComponents();
+        this.open();
     }
 
     /**
@@ -26,16 +44,16 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabs = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtBegin = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtEnd = new javax.swing.JTextField();
+        cboTimeRanges = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton6 = new javax.swing.JButton();
+        tblBills = new javax.swing.JTable();
+        btnLoc = new javax.swing.JButton();
         btncheckAll = new javax.swing.JButton();
         btnuncheck = new javax.swing.JButton();
         btndeleteChecked = new javax.swing.JButton();
@@ -48,9 +66,9 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         rdStatus1 = new javax.swing.JRadioButton();
         rdStatus2 = new javax.swing.JRadioButton();
         rdStatus3 = new javax.swing.JRadioButton();
-        txtCheckout = new javax.swing.JTextField();
+        txtKH = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtCardid = new javax.swing.JTextField();
+        txtMaNV = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblBillDetails = new javax.swing.JTable();
@@ -63,31 +81,31 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
         btnMoveNext = new javax.swing.JButton();
         btnMoveLast = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lblGiam = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        lblThanh = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        tabs.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("Từ ngày");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtBegin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtBeginActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Đến ngày");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay", "Tuần này", "Tháng này", "Quý này", "Năm nay" }));
+        cboTimeRanges.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay", "Tuần này", "Tháng này", "Quý này", "Năm nay" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblBills.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -106,15 +124,40 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblBills.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblBillsMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblBills);
 
-        jButton6.setText("Lọc");
+        btnLoc.setText("Lọc");
+        btnLoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLocActionPerformed(evt);
+            }
+        });
 
         btncheckAll.setText("Chọn tất cả");
+        btncheckAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncheckAllActionPerformed(evt);
+            }
+        });
 
         btnuncheck.setText("Bỏ chọn tất cả");
+        btnuncheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnuncheckActionPerformed(evt);
+            }
+        });
 
         btndeleteChecked.setText("Xóa các mục chọn");
+        btndeleteChecked.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndeleteCheckedActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -126,15 +169,15 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                         .addGap(29, 29, 29)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBegin, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(jButton6)
+                        .addComponent(btnLoc)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboTimeRanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 85, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
@@ -155,11 +198,11 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBegin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboTimeRanges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLoc)
+                    .addComponent(txtEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
@@ -170,7 +213,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                 .addContainerGap(134, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Biểu mẫu", jPanel2);
+        tabs.addTab("Biểu mẫu", jPanel2);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -194,9 +237,9 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Mã KH");
 
-        txtCardid.addActionListener(new java.awt.event.ActionListener() {
+        txtMaNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCardidActionPerformed(evt);
+                txtMaNVActionPerformed(evt);
             }
         });
 
@@ -273,15 +316,15 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Tổng tiền:");
 
-        jLabel5.setText("Total");
+        lblTotal.setText("Total");
 
         jLabel10.setText("Giảm giá:");
 
-        jLabel11.setText("Sale");
+        lblGiam.setText("Sale");
 
         jLabel12.setText("Thanh toán:");
 
-        jLabel13.setText("Payment");
+        lblThanh.setText("Payment");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -314,8 +357,8 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel7)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtCheckout, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                        .addComponent(txtCardid, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(txtKH, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                        .addComponent(txtMaNV, javax.swing.GroupLayout.Alignment.LEADING))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,9 +372,9 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel4)
                                 .addGap(36, 36, 36)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel13))))
+                            .addComponent(lblTotal)
+                            .addComponent(lblGiam)
+                            .addComponent(lblThanh))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,7 +410,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCardid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -375,12 +418,12 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(lblTotal))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
@@ -392,11 +435,11 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel11))
+                            .addComponent(lblGiam))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(jLabel13))))
+                            .addComponent(lblThanh))))
                 .addGap(74, 74, 74)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
@@ -412,7 +455,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
                 .addGap(260, 260, 260))
         );
 
-        jTabbedPane1.addTab("Danh sách ", jPanel1);
+        tabs.addTab("Danh sách ", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -420,66 +463,89 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(tabs)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 714, Short.MAX_VALUE))
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 714, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtBeginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBeginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtBeginActionPerformed
 
     private void txtCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCheckinActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCheckinActionPerformed
 
-    private void txtCardidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCardidActionPerformed
+    private void txtMaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNVActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCardidActionPerformed
+    }//GEN-LAST:event_txtMaNVActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-
+        this.create();
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
+        this.update();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-
+        this.delete();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-
+        this.clear();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnMoveFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveFirstActionPerformed
-
+        this.moveFirst();
     }//GEN-LAST:event_btnMoveFirstActionPerformed
 
     private void btnMovePreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovePreviousActionPerformed
-
+        this.movePrevious();
     }//GEN-LAST:event_btnMovePreviousActionPerformed
 
     private void btnMoveNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveNextActionPerformed
-
+        this.moveNext();
     }//GEN-LAST:event_btnMoveNextActionPerformed
 
     private void btnMoveLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveLastActionPerformed
-
+        this.moveLast();
     }//GEN-LAST:event_btnMoveLastActionPerformed
+
+    private void btncheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncheckAllActionPerformed
+        this.checkAll();
+    }//GEN-LAST:event_btncheckAllActionPerformed
+
+    private void btnuncheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuncheckActionPerformed
+        this.uncheckAll();
+    }//GEN-LAST:event_btnuncheckActionPerformed
+
+    private void btndeleteCheckedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteCheckedActionPerformed
+        this.deleteCheckedItems();
+    }//GEN-LAST:event_btndeleteCheckedActionPerformed
+
+    private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
+        this.selectTimeRange();
+    }//GEN-LAST:event_btnLocActionPerformed
+
+    private void tblBillsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillsMouseClicked
+        if (evt.getClickCount() == 2) {
+            this.edit();
+        }
+    }//GEN-LAST:event_tblBillsMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnLoc;
     private javax.swing.JButton btnMoveFirst;
     private javax.swing.JButton btnMoveLast;
     private javax.swing.JButton btnMoveNext;
@@ -488,17 +554,13 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btncheckAll;
     private javax.swing.JButton btndeleteChecked;
     private javax.swing.JButton btnuncheck;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cboTimeRanges;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -507,17 +569,270 @@ public class QLHoaDonJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblGiam;
+    private javax.swing.JLabel lblThanh;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JRadioButton rdStatus1;
     private javax.swing.JRadioButton rdStatus2;
     private javax.swing.JRadioButton rdStatus3;
+    private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tblBillDetails;
-    private javax.swing.JTextField txtCardid;
+    private javax.swing.JTable tblBills;
+    private javax.swing.JTextField txtBegin;
     private javax.swing.JTextField txtCheckin;
-    private javax.swing.JTextField txtCheckout;
+    private javax.swing.JTextField txtEnd;
     private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtKH;
+    private javax.swing.JTextField txtMaNV;
     // End of variables declaration//GEN-END:variables
+    
+    HoaDonDAO dao = new HoaDonDAOImpl();
+    List<HoaDon> items= List.of();
+    HoaDonChiTietDAO billDetailDao = new HoaDonChiTietDaoImpl();
+    List<HoaDonChiTiet> details = List.of();
+    @Override
+    public void fillBillDetails() {
+        DefaultTableModel model = (DefaultTableModel) tblBillDetails.getModel();
+        model.setRowCount(0);
+        details = List.of();
+        if (!txtId.getText().isBlank()) {
+            Long billId = Long.valueOf(txtId.getText());
+            details = billDetailDao.findByBillId(billId);
+        } 
+        details.forEach(d -> {
+            Object[] rowData = {
+            d.getMaSP(),
+            String.format("%.1f VNĐ", d.getDonGia()),
+            String.format("%.0f%%", d.getGiamGiaSP() * 100),
+            d.getSoLuong(), String.format("%.1f VNĐ", d.getThanhTien())
+            };
+        model.addRow(rowData);
+        });
+    }
+
+    @Override
+    public void selectTimeRange() {
+        TimeRange range = TimeRange.today();
+        switch (cboTimeRanges.getSelectedIndex()) {
+        case 0 -> range = TimeRange.today();
+        case 1 -> range = TimeRange.thisWeek();
+        case 2 -> range = TimeRange.thisMonth();
+        case 3 -> range = TimeRange.thisQuarter();
+        case 4 -> range = TimeRange.thisYear();
+        }
+        txtBegin.setText(XDate.format(range.getBegin(), "MM/dd/yyyy"));
+        txtEnd.setText(XDate.format(range.getEnd(), "MM/dd/yyyy"));
+        this.fillToTable();
+    }
+
+    @Override
+    public void open() {
+        this.selectTimeRange();
+        this.fillBillDetails();
+        this.clear();
+    }
+
+    @Override
+    public void setForm(HoaDon entity) {
+        txtId.setText(entity.getId() != null ? entity.getId().toString() : "");
+        txtMaNV.setText(entity.getMaNV() != null ? entity.getMaNV() : "");    
+        txtKH.setText(entity.getMaKH() != null ? entity.getMaKH() : "");
+        txtCheckin.setText(entity.getNgayLap() != null ? XDate.format(entity.getNgayLap(), XDate.PATTERN_FULL) : "");
+        lblTotal.setText(String.format("%.1f VNĐ",entity.getTongTien()));
+        lblGiam.setText(String.format("%.0f%%",entity.getGiamGia()));
+        lblThanh.setText(String.format("%.1f VNĐ", entity.getThanhToan()));
+        switch (entity.getStatus()) {
+        case 0:
+            rdStatus1.setSelected(true);
+            break;
+        case 1:
+            rdStatus2.setSelected(true);
+            break;
+        case 2:
+            rdStatus3.setSelected(true);
+            break;
+        default:
+            rdStatus1.setSelected(false);
+            rdStatus2.setSelected(false);
+            rdStatus3.setSelected(false);
+            break;
+        }
+        this.fillBillDetails();
+    }
+
+    @Override
+    public HoaDon getForm() {
+        HoaDon entity = new HoaDon();
+        entity.setId(Long.valueOf(txtId.getText()));
+        entity.setMaKH(txtKH.getText());             
+        String checkinText = txtCheckin.getText();   
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date checkinDate;
+        try {
+            checkinDate = formatter.parse(checkinText);
+            entity.setNgayLap(checkinDate);  
+        } catch (ParseException ex) {
+            Logger.getLogger(QLHoaDonJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        entity.setMaNV(txtMaNV.getText());
+        if(rdStatus1.isSelected()){
+            entity.setStatus(0);
+        }else if(rdStatus2.isSelected()){
+            entity.setStatus(1);
+        }else if(rdStatus3.isSelected()){
+            entity.setStatus(2);
+        }
+        entity.setGiamGia(Float.parseFloat(lblGiam.getText()));
+        entity.setTongTien(Float.parseFloat(lblTotal.getText()));
+        entity.setThanhToan(Float.parseFloat(lblThanh.getText()));
+        return entity;  
+    }
+
+    @Override
+    public void fillToTable() {
+        DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
+        model.setRowCount(0);
+        Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
+        Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
+        items = dao.findByTimeRange(begin, end);
+        items.forEach(item -> {   
+            String statusText;
+            switch (item.getStatus()) {
+                case 0:
+                    statusText = "Servicing";
+                    break;
+                case 1:
+                    statusText = "Completed";
+                    break;
+                case 2:
+                    statusText = "Canceled";
+                    break;
+                default:
+                    statusText = "Unknown";
+            }
+                Object[]rowData={
+                item.getId(),
+                item.getMaNV(),
+                item.getMaKH(),
+                XDate.format(item.getNgayLap(), XDate.PATTERN_SHORT),
+                item.getTongTien(),
+                item.getGiamGia(),
+                item.getThanhToan(),
+                statusText, 
+                false
+            };
+            model.addRow(rowData);});
+    }
+
+    @Override
+    public void edit() {
+        HoaDon entity = items.get(tblBills.getSelectedRow());
+        this.setForm(entity);
+        this.setEditable(true);
+        tabs.setSelectedIndex(1);
+    }
+
+    @Override
+    public void create() {
+        HoaDon entity = this.getForm();
+        dao.create(entity);
+        this.fillToTable();
+        this.clear();
+    }
+
+    @Override
+    public void update() {
+        HoaDon entity = this.getForm();
+        dao.update(entity);
+        this.fillToTable();
+    }
+
+    @Override
+    public void delete() {
+        if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
+            Long Id = Long.valueOf(txtId.getText());
+            dao.deleteById(Id);
+            this.fillToTable();
+            this.clear();
+        }   
+    }
+
+    @Override
+    public void clear() {
+        this.setForm(new HoaDon());
+        this.setEditable(false);
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+        txtId.setEnabled(!editable);
+        btnCreate.setEnabled(!editable);
+        btnUpdate.setEnabled(editable);
+        btnDelete.setEnabled(editable);
+        int rowCount = tblBills.getRowCount();
+        btnMoveFirst.setEnabled(editable && rowCount > 0);
+        btnMovePrevious.setEnabled(editable && rowCount > 0);
+        btnMoveNext.setEnabled(editable && rowCount > 0);
+        btnMoveLast.setEnabled(editable && rowCount > 0); 
+    }
+
+    @Override
+    public void checkAll() {
+        this.setCheckedAll(true);
+    }
+
+    @Override
+    public void uncheckAll() {
+        this.setCheckedAll(false);
+    }
+    
+    private void setCheckedAll(boolean checked) {
+        for (int i = 0; i < tblBills.getRowCount(); i++) {
+        tblBills.setValueAt(checked, i, 8);
+        }
+    }
+    @Override
+    public void deleteCheckedItems() {
+        if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
+            for (int i = 0; i < tblBills.getRowCount(); i++) {
+                if ((Boolean) tblBills.getValueAt(i, 8)) {
+                    dao.deleteById(items.get(i).getId());
+                }
+            }
+            this.fillToTable();
+        }    
+    }
+
+    @Override
+    public void moveFirst() {
+        this.moveTo(0); 
+    }
+
+    @Override
+    public void movePrevious() {
+        this.moveTo(tblBills.getSelectedRow() - 1);
+    }
+
+    @Override
+    public void moveNext() {
+        this.moveTo(tblBills.getSelectedRow() + 1);
+    }
+
+    @Override
+    public void moveLast() {
+        this.moveTo(tblBills.getRowCount() - 1);
+    }
+
+    @Override
+    public void moveTo(int index) {
+        if (index < 0) {
+            this.moveLast();
+        } else if (index >= tblBills.getRowCount()) {
+            this.moveFirst();
+        } else {
+            tblBills.clearSelection();
+            tblBills.setRowSelectionInterval(index, index);
+            this.edit();
+        }   
+    }
 }

@@ -227,10 +227,10 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
                     .addComponent(jLabel6))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblPercent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(76, 76, 76))
+                    .addComponent(lblPercent, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                    .addComponent(lblMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,6 +450,7 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
             dao.update(bill);
             setForm(bill);
         }
+        clearForm();
     }
 
     @Override
@@ -502,7 +503,7 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
         txtId.setText("");
         txtKH.setText("");
         txtUsername.setText("");
-        txtStatus.setText("Servicing");
+        txtStatus.setText("");
         txtCheckout.setText("");
         ((DefaultTableModel) tblBillDetails.getModel()).setRowCount(0);
         details.clear();
@@ -510,6 +511,9 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
         btnCancel.setEnabled(true);
         btnCheckout.setEnabled(true);
         btnRemove.setEnabled(true);
+        lblTotal.setText("0");
+        lblPercent.setText("0%");
+        lblMoney.setText("0");
     }
 
 // 🆕 Tạo mới một hóa đơn rỗng
