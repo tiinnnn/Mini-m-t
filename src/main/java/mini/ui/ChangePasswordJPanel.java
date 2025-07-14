@@ -35,11 +35,11 @@ public class ChangePasswordJPanel extends javax.swing.JPanel implements ChangePa
         jLabel2 = new javax.swing.JLabel();
         txtMaNV = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        txtNewPassword = new javax.swing.JLabel();
+        txtNewPassword = new javax.swing.JTextField();
+        lblNewPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
-        txtConfirm = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        lblConfirm = new javax.swing.JLabel();
+        txtConfirm = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -54,14 +54,19 @@ public class ChangePasswordJPanel extends javax.swing.JPanel implements ChangePa
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Mật khẩu hiện tại");
 
-        txtNewPassword.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtNewPassword.setText("Mật khẩu mới");
+        lblNewPassword.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblNewPassword.setText("Mật khẩu mới");
 
-        txtConfirm.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txtConfirm.setText("Xác nhận mật khẩu mới");
+        lblConfirm.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblConfirm.setText("Xác nhận mật khẩu mới");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setText("Lưu");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,22 +75,17 @@ public class ChangePasswordJPanel extends javax.swing.JPanel implements ChangePa
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtMaNV, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                            .addComponent(jTextField2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNewPassword)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtMaNV, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                        .addComponent(txtNewPassword))
+                    .addComponent(jLabel2)
+                    .addComponent(lblNewPassword))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtConfirm)
+                        .addComponent(lblConfirm)
                         .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                        .addComponent(jTextField4))
+                        .addComponent(txtConfirm))
                     .addComponent(jLabel3))
                 .addGap(114, 114, 114))
             .addGroup(layout.createSequentialGroup()
@@ -113,17 +113,21 @@ public class ChangePasswordJPanel extends javax.swing.JPanel implements ChangePa
                     .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtConfirm)
-                    .addComponent(txtNewPassword))
+                    .addComponent(lblConfirm)
+                    .addComponent(lblNewPassword))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addComponent(jButton1)
                 .addContainerGap(336, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.save();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -131,11 +135,11 @@ public class ChangePasswordJPanel extends javax.swing.JPanel implements ChangePa
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JLabel txtConfirm;
+    private javax.swing.JLabel lblConfirm;
+    private javax.swing.JLabel lblNewPassword;
+    private javax.swing.JTextField txtConfirm;
     private javax.swing.JTextField txtMaNV;
-    private javax.swing.JLabel txtNewPassword;
+    private javax.swing.JTextField txtNewPassword;
     private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
 

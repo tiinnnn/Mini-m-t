@@ -101,7 +101,7 @@ public class QLKhachHangJPanel extends javax.swing.JPanel implements QLKhachHang
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Tên KH", "Mã KH", "SDT", "Tổng chi tiêu", "Hạng", ""
+                "Mã KH", "Tên KH", "SDT", "Tổng chi tiêu", "Hạng", ""
             }
         ) {
             Class[] types = new Class [] {

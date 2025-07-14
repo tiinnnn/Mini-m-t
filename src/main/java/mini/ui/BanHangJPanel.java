@@ -496,6 +496,8 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
         btnCancel.setEnabled(editable);
         btnCheckout.setEnabled(editable);
         btnRemove.setEnabled(editable);
+        //if error delete
+        txtId.setEnabled(false);
     }
 
     // 🧼 Xóa form để chuẩn bị tạo hóa đơn mới
@@ -519,6 +521,8 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
 // 🆕 Tạo mới một hóa đơn rỗng
     public void createNewBill() {
             // Khởi tạo hóa đơn mới
+            txtKH.setText("");
+            txtUsername1.setText("");
             bill = new HoaDon();
             bill.setStatus(HoaDon.Status.Servicing.ordinal());
             bill.setMaNV(XAuth.user.getMaNV());

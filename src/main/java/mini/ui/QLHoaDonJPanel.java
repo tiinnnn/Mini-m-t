@@ -44,6 +44,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel implements QLHoaDonContro
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         tabs = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -229,10 +230,13 @@ public class QLHoaDonJPanel extends javax.swing.JPanel implements QLHoaDonContro
 
         jLabel8.setText("Trạng thái");
 
+        buttonGroup1.add(rdStatus1);
         rdStatus1.setText("Servicing");
 
+        buttonGroup1.add(rdStatus2);
         rdStatus2.setText("Completed");
 
+        buttonGroup1.add(rdStatus3);
         rdStatus3.setText("Canceled");
 
         jLabel7.setText("Mã KH");
@@ -554,6 +558,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel implements QLHoaDonContro
     private javax.swing.JButton btncheckAll;
     private javax.swing.JButton btndeleteChecked;
     private javax.swing.JButton btnuncheck;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboTimeRanges;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -682,9 +687,9 @@ public class QLHoaDonJPanel extends javax.swing.JPanel implements QLHoaDonContro
         }else if(rdStatus3.isSelected()){
             entity.setStatus(2);
         }
-        entity.setGiamGia(Float.parseFloat(lblGiam.getText()));
-        entity.setTongTien(Float.parseFloat(lblTotal.getText()));
-        entity.setThanhToan(Float.parseFloat(lblThanh.getText()));
+        entity.setGiamGia(Float.parseFloat(lblGiam.getText().replaceAll("[^\\d.]", "")));
+        entity.setTongTien(Float.parseFloat(lblTotal.getText().replaceAll("[^\\d.]", "")));
+        entity.setThanhToan(Float.parseFloat(lblThanh.getText().replaceAll("[^\\d.]", "")));
         return entity;  
     }
 
