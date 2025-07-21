@@ -550,8 +550,8 @@ public class QLSanPhamJPanel extends javax.swing.JPanel implements QLSanPhamCont
                 item.getTenSP(),
                 item.getGiaNhap()+" VND",
                 item.getGiaBan()+" VND",
-                item.getGiamGiaSP()*100+"%",
                 item.getSoLuong(),
+                item.getGiamGiaSP()*100+"%",
                 false
             };
         model.addRow(rowData);

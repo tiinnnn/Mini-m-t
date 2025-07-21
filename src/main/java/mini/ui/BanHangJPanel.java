@@ -373,6 +373,28 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
         }
     }
 
+    public boolean kiemTraSoLuongSP() {
+    SanPhamDAO spdao = new SanPhamDAOImpl();
+        for (HoaDonChiTiet e : details){
+            SanPham Sp = spdao.findById(e.getMaSP());
+            if (Sp.getSoLuong() < e.getSoLuong()){
+                XDialog.alert("Số lượng hàng không đủ cho sản phẩm: " + Sp.getTenSP());
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void truSoLuongSP() {
+        SanPhamDAO spdao = new SanPhamDAOImpl();
+        for (HoaDonChiTiet e : details){
+            SanPham Sp = spdao.findById(e.getMaSP());
+            int SoLuongSPAF = Sp.getSoLuong() - e.getSoLuong();
+            Sp.setSoLuong(SoLuongSPAF);
+            spdao.update(Sp);
+        }
+    }
+
     @Override
     public void showChonHangJDialog() {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -415,12 +437,17 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
     @Override
     public void checkout() {
         if (XDialog.confirm("Bạn muốn thanh toán phiếu bán hàng?")) {
+            if (!kiemTraSoLuongSP()) {
+                XDialog.alert("Không thể thanh toán. Có sản phẩm không đủ hàng.");
+                return;
+            }
+            truSoLuongSP(); 
             bill.setStatus(HoaDon.Status.Completed.ordinal());
             bill.setNgayLap(new Date());
             KH = khDAO.findById(txtKH.getText());
             if (KH == null) {
-            XDialog.alert("Không tìm thấy thông tin khách hàng!");
-            return;
+                XDialog.alert("Không tìm thấy thông tin khách hàng!");
+                return;
             }
             txtUsername1.setText(KH.getHang());
             bill.setMaKH(KH.getMaKH());

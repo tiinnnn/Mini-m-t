@@ -644,7 +644,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel implements QLHoaDonContro
         txtKH.setText(entity.getMaKH() != null ? entity.getMaKH() : "");
         txtCheckin.setText(entity.getNgayLap() != null ? XDate.format(entity.getNgayLap(), XDate.PATTERN_FULL) : "");
         lblTotal.setText(String.format("%.1f VNĐ",entity.getTongTien()));
-        lblGiam.setText(String.format("%.0f%%",entity.getGiamGia()));
+        lblGiam.setText(String.format("%.0f%%", entity.getGiamGia() * 100));
         lblThanh.setText(String.format("%.1f VNĐ", entity.getThanhToan()));
         switch (entity.getStatus()) {
         case 0:
@@ -687,7 +687,8 @@ public class QLHoaDonJPanel extends javax.swing.JPanel implements QLHoaDonContro
         }else if(rdStatus3.isSelected()){
             entity.setStatus(2);
         }
-        entity.setGiamGia(Float.parseFloat(lblGiam.getText().replaceAll("[^\\d.]", "")));
+        float giamGia = Float.parseFloat(lblGiam.getText().replaceAll("[^\\d.]", "")) / 100f;
+        entity.setGiamGia(giamGia);
         entity.setTongTien(Float.parseFloat(lblTotal.getText().replaceAll("[^\\d.]", "")));
         entity.setThanhToan(Float.parseFloat(lblThanh.getText().replaceAll("[^\\d.]", "")));
         return entity;  
