@@ -151,7 +151,7 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Tên khách hàng");
+        jLabel2.setText("Mã khách hàng");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setText("Hạng khách hàng");
