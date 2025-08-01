@@ -163,7 +163,7 @@ public class BanHangJPanel extends javax.swing.JPanel implements BanHangControll
         lblTotal.setText("Total");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Khấu trự hạng:");
+        jLabel5.setText("Khấu trừ hạng:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Thành tiền:");

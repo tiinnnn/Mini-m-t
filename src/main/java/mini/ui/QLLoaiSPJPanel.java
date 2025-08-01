@@ -163,7 +163,7 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel implements QLLoaiControll
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Mã Sản Phẩm");
+        jLabel1.setText("Mã Loại Sản Phẩm");
 
         txtMaLoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +172,7 @@ public class QLLoaiSPJPanel extends javax.swing.JPanel implements QLLoaiControll
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Tên Sản Phẩm");
+        jLabel2.setText("Tên Loại Sản Phẩm");
 
         btnCreate.setText("Tạo mới");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
