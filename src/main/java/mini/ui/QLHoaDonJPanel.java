@@ -222,7 +222,7 @@ public class QLHoaDonJPanel extends javax.swing.JPanel implements QLHoaDonContro
         ));
         jScrollPane2.setViewportView(tblBillDetails);
 
-        btnClear.setText("Tạo mới");
+        btnClear.setText("Làm mới");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearActionPerformed(evt);
